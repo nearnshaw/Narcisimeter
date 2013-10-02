@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="echo">
+    <global-element name="Twitter" type="http://www.mulesoft.org/schema/mule/twitter/config" entity-id="Twitter#1">
+        <properties>
+            <property name="proxyUsername"/>
+            <property name="useSSL"/>
+            <property name="consumerKey" value="qsWtzMWODNcabzOJfzcLA"/>
+            <property name="accessKey" value="1345420363-f9kZSt98PupZXD9kpu0uulgTuN7v7iyvvhw12Q"/>
+            <property name="proxyHost"/>
+            <property name="name" value="Twitter"/>
+            <property name="accessSecret" value="o2VENCZz7GIMSG3lbyfay1KTSsDpfpqHSUIU6FvDsso"/>
+            <property name="proxyPort"/>
+            <property name="auxiliary;index" value="1"/>
+            <property name="proxyPassword"/>
+            <property name="consumerSecret" value="nHmAO2pUJuUxciaYTdIC9sgVpQNAULmLWaiHJUAc"/>
+            <property-collection name="@http://www.mulesoft.org/schema/mule/twitter/connection-pooling-profile;0">
+                <property name="exhaustedAction" value="WHEN_EXHAUSTED_GROW"/>
+                <property name="isProcessed$$$$" value="true"/>
+                <property name="auxiliary;index" value="2"/>
+                <property name="auxiliary;wrapIn" value="2"/>
+                <property name="initialisationPolicy" value="INITIALISE_ONE"/>
+            </property-collection>
+        </properties>
+    </global-element>
+    <flow SubFlow="false" name="echoFlow1" entity-id="97311c7b-56b9-49cb-a2bb-ee77b31a89ca">
+        <properties>
+            <property name="updated"/>
+            <property name="processingStrategy2" value=""/>
+            <property name="bussinessEventsLabel" value=""/>
+            <property name="tracking:enable-default-events" value="false"/>
+            <property name="auxiliary;erased;processingStrategy2" value="true"/>
+            <property name="auxiliary;index" value="22"/>
+            <property-collection name="@http://www.mulesoft.org/schema/mule/ee/tracking/transaction;1278530295">
+                <property name="isProcessed$$$$" value="true"/>
+            </property-collection>
+        </properties>
+        <description></description>
+        <lane hadOnlyOneElement="false" index="0" isChoiceOtherwiseLane="false" entity-id="compartment-lane#5">
+            <graphicalData x="0" y="0" width="0" height="0"/>
+            <pattern name="Javascript" type="http://www.mulesoft.org/schema/mule/scripting/jsTransformer" entity-id="Javascript#1">
+                <graphicalData x="0" y="0" width="0" height="0"/>
+                <properties>
+                    <property name="auxiliary;erased;mimeType" value="true"/>
+                    <property name="returnClass" value=""/>
+                    <property name="ignoreBadInput" value="false"/>
+                    <property name="text" value="&#xA;var twt = payload.text;&#xA;var words = twt.split(&quot; &quot;);&#xA;var conta = 0;&#xA;&#xA;for (var i=0; i&lt; words.length; i++)&#xA;{&#xA;&#x9;if (words[i] == &quot;yo&quot;)&#xA;&#x9;{&#xA;&#x9;&#x9;conta ++;&#xA;&#x9;}&#xA;}&#xA;//return conta;&#xA; flowVars['yocount'] = conta;&#xA;"/>
+                    <property name="updated"/>
+                    <property name="auxiliary;erased;encoding" value="true"/>
+                    <property name="encoding" value=""/>
+                    <property name="mimeType" value=""/>
+                    <property name="auxiliary;index" value="23"/>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script;2097658923">
+                        <property name="text" value="&#xA;var twt = payload.text;&#xA;var words = twt.split(&quot; &quot;);&#xA;var conta = 0;&#xA;&#xA;for (var i=0; i&lt; words.length; i++)&#xA;{&#xA;&#x9;if (words[i] == &quot;yo&quot;)&#xA;&#x9;{&#xA;&#x9;&#x9;conta ++;&#xA;&#x9;}&#xA;}&#xA;//return conta;&#xA; flowVars['yocount'] = conta;&#xA;"/>
+                        <property name="isProcessed$$$$" value="true"/>
+                        <property name="auxiliary;index" value="24"/>
+                    </property-collection>
+                </properties>
+                <description></description>
+            </pattern>
+            <pattern name="Groovy" type="http://www.mulesoft.org/schema/mule/scripting/groovyComponent" entity-id="Groovy#3">
+                <graphicalData x="0" y="0" width="0" height="0"/>
+                <properties>
+                    <property name="ref" value=""/>
+                    <property name="text" value="def yos = 0;&#xA;def conta = 0;&#xA;def twts = payload.size();&#xA;&#xA;for (def j=0; j &lt; twts; j++)&#xA;{&#xA;def twt = payload[j].get(0).text.value;&#xA;def words = twt.split();&#xA;&#xA;&#xA;for ( def i=0; i &lt; words.length; i++)&#xA;{&#xA;&#x9;if (words[i] == &quot;yo&quot; )&#xA;&#x9;{&#xA;&#x9;&#x9;yos ++;&#xA;&#x9;} &#xA;&#x9; else if (words[i] == &quot;me&quot; )&#xA;&#x9;{&#xA;&#x9;&#x9;yos ++;&#xA;&#x9;}&#xA;&#x9;conta ++;  &#xA;}&#xA;} &#xA;def outmap = [yocount:yos,wordcount:conta,tweetcount:twts];&#xA;&#xA;return outmap;"/>
+                    <property name="updated"/>
+                    <property name="auxiliary;index" value="25"/>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/core/refInterceptorStackType;267854471">
+                        <property name="ref" value=""/>
+                        <property name="isProcessed$$$$" value="true"/>
+                    </property-collection>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script;36303517">
+                        <property name="text" value="def yos = 0;&#xA;def conta = 0;&#xA;def twts = payload.size();&#xA;&#xA;for (def j=0; j &lt; twts; j++)&#xA;{&#xA;def twt = payload[j].get(0).text.value;&#xA;def words = twt.split();&#xA;&#xA;&#xA;for ( def i=0; i &lt; words.length; i++)&#xA;{&#xA;&#x9;if (words[i] == &quot;yo&quot; )&#xA;&#x9;{&#xA;&#x9;&#x9;yos ++;&#xA;&#x9;} &#xA;&#x9; else if (words[i] == &quot;me&quot; )&#xA;&#x9;{&#xA;&#x9;&#x9;yos ++;&#xA;&#x9;}&#xA;&#x9;conta ++;  &#xA;}&#xA;} &#xA;def outmap = [yocount:yos,wordcount:conta,tweetcount:twts];&#xA;&#xA;return outmap;"/>
+                        <property name="isProcessed$$$$" value="true"/>
+                        <property name="auxiliary;index" value="26"/>
+                    </property-collection>
+                </properties>
+                <description></description>
+            </pattern>
+        </lane>
+        <apikit>false</apikit>
+    </flow>
+    <flow SubFlow="false" name="conforeach" entity-id="bfa6b81c-af28-456f-8de7-b419ca77bb57">
+        <properties>
+            <property name="updated"/>
+            <property name="processingStrategy2" value=""/>
+            <property name="bussinessEventsLabel" value=""/>
+            <property name="auxiliary;index" value="3"/>
+            <property name="auxiliary;erased;processingStrategy2" value="true"/>
+            <property name="tracking:enable-default-events" value="false"/>
+            <property-collection name="@http://www.mulesoft.org/schema/mule/ee/tracking/transaction;1100008197">
+                <property name="isProcessed$$$$" value="true"/>
+            </property-collection>
+        </properties>
+        <description></description>
+        <lane hadOnlyOneElement="false" index="0" isChoiceOtherwiseLane="false" entity-id="compartment-lane#1">
+            <graphicalData x="0" y="0" width="0" height="0"/>
+            <endpoint direction="Inbound" message-exchange-pattern="RequestResponse" name="HTTP" type="http://www.mulesoft.org/schema/mule/http/endpoint" entity-id="HTTP#1">
+                <graphicalData x="0" y="0" width="0" height="0"/>
+                <properties>
+                    <property name="port" value="8085"/>
+                    <property name="host" value="localhost"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="followRedirects"/>
+                    <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/http/endpoint"/>
+                    <property name="keep-alive"/>
+                    <property name="contentType"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="password"/>
+                    <property name="exchange-pattern" value="request-response"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property name="ref"/>
+                    <property name="httpLabel"/>
+                    <property name="transformer-refs"/>
+                    <property name="address"/>
+                    <property name="encoding"/>
+                    <property name="path"/>
+                    <property name="responseTransformer-refs"/>
+                    <property name="method"/>
+                    <property name="user"/>
+                    <property name="mimeType"/>
+                    <property name="responseTimeout"/>
+                    <property name="auxiliary;index" value="4"/>
+                    <property name="connector-ref"/>
+                </properties>
+                <description>Process HTTP requests or responses.</description>
+            </endpoint>
+            <pattern name="Twitter" type="http://www.mulesoft.org/schema/mule/twitter/twitter-connector" entity-id="Twitter#2">
+                <graphicalData x="0" y="0" width="0" height="0"/>
+                <properties>
+                    <property name=""/>
+                    <property name="sinceId" value="2500"/>
+                    <property name="accessKey"/>
+                    <property name="count"/>
+                    <property name="page"/>
+                    <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/twitter/get-user-timeline-by-screen-name"/>
+                    <property name="screenName" value="#[message.inboundProperties['http.query.params']['sname']]"/>
+                    <property name="accessSecret"/>
+                    <property name="config-ref" value="Twitter"/>
+                    <property name="auxiliary;index" value="5"/>
+                </properties>
+            </pattern>
+            <pattern name="Logger" type="http://www.mulesoft.org/schema/mule/core/logger" entity-id="Logger#1">
+                <graphicalData x="0" y="0" width="0" height="0"/>
+                <properties>
+                    <property name="message" value="#[payload[0].text]"/>
+                    <property name="category"/>
+                    <property name="level" value="INFO"/>
+                    <property name="auxiliary;index" value="6"/>
+                </properties>
+            </pattern>
+            <scope name="For Each" type="http://www.mulesoft.org/schema/mule/core/foreach" entity-id="For Each#1">
+                <graphicalData x="0" y="0" width="0" height="0"/>
+                <properties>
+                    <property name="counterVariableName"/>
+                    <property name="rootMessageVariableName"/>
+                    <property name="batchSize"/>
+                    <property name="collection"/>
+                    <property name="auxiliary;index" value="7"/>
+                </properties>
+                <compartment entity-id="compartment#1">
+                    <lane hadOnlyOneElement="false" index="0" isChoiceOtherwiseLane="false" entity-id="compartment-lane#2">
+                        <pattern name="Set Payload" type="http://www.mulesoft.org/schema/mule/core/set-payload" entity-id="Set Payload#1">
+                            <graphicalData x="0" y="0" width="0" height="0"/>
+                            <properties>
+<property name="value" value="#[payload.text]"/>
+<property name="auxiliary;index" value="8"/>
+                            </properties>
+                        </pattern>
+                        <pattern name="Groovy" type="http://www.mulesoft.org/schema/mule/scripting/groovyComponent" entity-id="Groovy#1">
+                            <graphicalData x="0" y="0" width="0" height="0"/>
+                            <properties>
+<property name="ref" value=""/>
+<property name="text" value="def twt = payload.get(0);&#xA;def words = twt.split();&#xA;def yos = 0;&#xA;def conta = 0;&#xA;&#xA;for (def i=0; i &lt; words.length; i++)&#xA;{&#xA;&#x9;if (words[i] == &quot;yo&quot; )&#xA;&#x9;{&#xA;&#x9;&#x9;yos ++;&#xA;&#x9;} &#xA;&#x9; else if (words[i] == &quot;me&quot; )&#xA;&#x9;{&#xA;&#x9;&#x9;yos ++;&#xA;&#x9;}&#xA;&#x9;conta ++;  &#xA;}&#xA;&#xA;def outmap = [yocount:yos,wordcount:conta];&#xA;&#xA;return outmap;"/>
+<property name="updated"/>
+<property name="auxiliary;index" value="9"/>
+<property-collection name="@http://www.mulesoft.org/schema/mule/core/refInterceptorStackType;1338269322">
+    <property name="ref" value=""/>
+    <property name="isProcessed$$$$" value="true"/>
+</property-collection>
+<property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script;572758968">
+    <property name="text" value="def twt = payload.get(0);&#xA;def words = twt.split();&#xA;def yos = 0;&#xA;def conta = 0;&#xA;&#xA;for (def i=0; i &lt; words.length; i++)&#xA;{&#xA;&#x9;if (words[i] == &quot;yo&quot; )&#xA;&#x9;{&#xA;&#x9;&#x9;yos ++;&#xA;&#x9;} &#xA;&#x9; else if (words[i] == &quot;me&quot; )&#xA;&#x9;{&#xA;&#x9;&#x9;yos ++;&#xA;&#x9;}&#xA;&#x9;conta ++;  &#xA;}&#xA;&#xA;def outmap = [yocount:yos,wordcount:conta];&#xA;&#xA;return outmap;"/>
+    <property name="isProcessed$$$$" value="true"/>
+    <property name="auxiliary;index" value="10"/>
+</property-collection>
+                            </properties>
+                            <description></description>
+                        </pattern>
+                        <pattern name="Logger" type="http://www.mulesoft.org/schema/mule/core/logger" entity-id="Logger#2">
+                            <graphicalData x="0" y="0" width="0" height="0"/>
+                            <properties>
+<property name="message" value="&quot;ESTA ES LA POSTA MIRA ESTE NUMERO ACA  &quot;  + #[map-payload:wordcount]"/>
+<property name="category"/>
+<property name="level" value="INFO"/>
+<property name="auxiliary;index" value="11"/>
+                            </properties>
+                            <description></description>
+                        </pattern>
+                    </lane>
+                </compartment>
+            </scope>
+        </lane>
+        <apikit>false</apikit>
+    </flow>
+    <flow SubFlow="false" name="sinForEach" entity-id="d1f98c9f-4e43-49c4-ac4d-e69a6a13899a">
+        <properties>
+            <property name="updated"/>
+            <property name="processingStrategy2" value=""/>
+            <property name="bussinessEventsLabel" value=""/>
+            <property name="tracking:enable-default-events" value="false"/>
+            <property name="auxiliary;erased;processingStrategy2" value="true"/>
+            <property name="auxiliary;index" value="12"/>
+            <property-collection name="@http://www.mulesoft.org/schema/mule/ee/tracking/transaction;1775807850">
+                <property name="isProcessed$$$$" value="true"/>
+            </property-collection>
+        </properties>
+        <description></description>
+        <lane hadOnlyOneElement="false" index="0" isChoiceOtherwiseLane="false" entity-id="compartment-lane#3">
+            <graphicalData x="0" y="0" width="0" height="0"/>
+            <endpoint direction="Inbound" message-exchange-pattern="RequestResponse" name="HTTP" type="http://www.mulesoft.org/schema/mule/http/endpoint" entity-id="HTTP#2">
+                <graphicalData x="0" y="0" width="0" height="0"/>
+                <properties>
+                    <property name="port" value="8084"/>
+                    <property name="host" value="localhost"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="followRedirects"/>
+                    <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/http/endpoint"/>
+                    <property name="keep-alive"/>
+                    <property name="contentType"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="password"/>
+                    <property name="exchange-pattern" value="request-response"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property name="ref"/>
+                    <property name="httpLabel"/>
+                    <property name="transformer-refs"/>
+                    <property name="address"/>
+                    <property name="encoding"/>
+                    <property name="path"/>
+                    <property name="responseTransformer-refs"/>
+                    <property name="method"/>
+                    <property name="user"/>
+                    <property name="mimeType"/>
+                    <property name="responseTimeout"/>
+                    <property name="auxiliary;index" value="13"/>
+                    <property name="connector-ref"/>
+                </properties>
+                <description>Process HTTP requests or responses.</description>
+            </endpoint>
+            <pattern name="Twitter" type="http://www.mulesoft.org/schema/mule/twitter/twitter-connector" entity-id="Twitter#3">
+                <graphicalData x="0" y="0" width="0" height="0"/>
+                <properties>
+                    <property name=""/>
+                    <property name="sinceId" value="2500"/>
+                    <property name="accessKey"/>
+                    <property name="count"/>
+                    <property name="page"/>
+                    <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/twitter/get-user-timeline-by-screen-name"/>
+                    <property name="screenName" value="#[message.inboundProperties['http.query.params']['sname']]"/>
+                    <property name="accessSecret"/>
+                    <property name="config-ref" value="Twitter"/>
+                    <property name="auxiliary;index" value="14"/>
+                </properties>
+                <description></description>
+            </pattern>
+            <pattern name="Logger" type="http://www.mulesoft.org/schema/mule/core/logger" entity-id="Logger#3">
+                <graphicalData x="0" y="0" width="0" height="0"/>
+                <properties>
+                    <property name="message" value="#[payload[0].text]"/>
+                    <property name="category"/>
+                    <property name="level" value="INFO"/>
+                    <property name="auxiliary;index" value="15"/>
+                </properties>
+                <description></description>
+            </pattern>
+            <scope name="Message Enricher" type="org.mule.tooling.ui.modules.core.scope.enricher" entity-id="Message Enricher#1">
+                <graphicalData x="0" y="0" width="0" height="0"/>
+                <properties>
+                    <property name="source" value=""/>
+                    <property name="updated"/>
+                    <property name="target" value=""/>
+                    <property name="auxiliary;index" value="16"/>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/core/enrich;0">
+                        <property name="source" value="#[map-payload:yocount]"/>
+                        <property name="target" value="#[variable:yocount]"/>
+                        <property name="isProcessed$$$$" value="true"/>
+                        <property name="auxiliary;wrapIn" value="19"/>
+                        <property name="auxiliary;index" value="19"/>
+                    </property-collection>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/core/enrich;1">
+                        <property name="source" value="#[map-payload:wordcount]"/>
+                        <property name="target" value="#[variable:wordcount]"/>
+                        <property name="isProcessed$$$$" value="true"/>
+                        <property name="auxiliary;wrapIn" value="20"/>
+                        <property name="auxiliary;index" value="20"/>
+                    </property-collection>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/core/enrich;3">
+                        <property name="source" value="#[map-payload:tweetcount]"/>
+                        <property name="target" value="#[variable:tweetcount]"/>
+                        <property name="isProcessed$$$$" value="true"/>
+                    </property-collection>
+                </properties>
+                <description></description>
+                <compartment entity-id="compartment#2">
+                    <lane hadOnlyOneElement="false" index="0" isChoiceOtherwiseLane="false" entity-id="compartment-lane#4">
+                        <pattern name="Groovy" type="http://www.mulesoft.org/schema/mule/scripting/groovyTransformer" entity-id="Groovy#2">
+                            <graphicalData x="0" y="0" width="0" height="0"/>
+                            <properties>
+<property name="auxiliary;erased;mimeType" value="true"/>
+<property name="returnClass" value=""/>
+<property name="text" value="def yos = 0;&#xA;def conta = 0;&#xA;def twts = payload.size();&#xA;&#xA;for (def i = 0; i &lt; twts; i++) &#xA;{&#xA;def twt = payload[0].text;&#xA;def words = twt.split();&#xA;&#xA;&#x9;for (def j = 0; j &lt; 5; j++) &#xA;&#x9;{&#xA;&#xA;&#x9;&#x9;conta++;  &#xA;&#x9;}&#xA;} &#xA;&#xA;&#xA;&#xA;&#xA;&#xA;def outmap = [yocount:yos,wordcount:conta,tweetcount:twts];&#xA;&#xA;return outmap;"/>
+<property name="ignoreBadInput" value="false"/>
+<property name="updated"/>
+<property name="auxiliary;erased;encoding" value="true"/>
+<property name="encoding" value=""/>
+<property name="auxiliary;index" value="17"/>
+<property name="mimeType" value=""/>
+<property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script;1024066255">
+    <property name="text" value="def yos = 0;&#xA;def conta = 0;&#xA;def twts = payload.size();&#xA;&#xA;for (def i = 0; i &lt; twts; i++) &#xA;{&#xA;def twt = payload[0].text;&#xA;def words = twt.split();&#xA;&#xA;&#x9;for (def j = 0; j &lt; 5; j++) &#xA;&#x9;{&#xA;&#xA;&#x9;&#x9;conta++;  &#xA;&#x9;}&#xA;} &#xA;&#xA;&#xA;&#xA;&#xA;&#xA;def outmap = [yocount:yos,wordcount:conta,tweetcount:twts];&#xA;&#xA;return outmap;"/>
+    <property name="isProcessed$$$$" value="true"/>
+    <property name="auxiliary;index" value="18"/>
+</property-collection>
+                            </properties>
+                            <description></description>
+                        </pattern>
+                    </lane>
+                </compartment>
+            </scope>
+            <pattern name="Logger" type="http://www.mulesoft.org/schema/mule/core/logger" entity-id="Logger#4">
+                <graphicalData x="0" y="0" width="0" height="0"/>
+                <properties>
+                    <property name="message" value="&quot;YO COUNT  &quot;   #[yocount]  &quot; la cantidad de tweets es &quot;  #[tweetcount]  &quot; y de palabras &quot;  #[wordcount]"/>
+                    <property name="category" value=""/>
+                    <property name="level" value="INFO"/>
+                    <property name="updated"/>
+                    <property name="auxiliary;index" value="21"/>
+                </properties>
+                <description></description>
+            </pattern>
+        </lane>
+        <apikit>false</apikit>
+    </flow>
+</mule-configuration>
